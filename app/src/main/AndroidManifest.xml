@@ -18,6 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".PopupActivity"></activity>
+        <activity
+            android:name=".QuickPlayActivity"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>

@@ -26,7 +26,7 @@ public class MovieActivity extends AppCompatActivity {
     MoviesAdapter adapter;
     ListView lvMovies;
     SwipeRefreshLayout swipeContainer;
-
+    String ytUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,12 +104,44 @@ public class MovieActivity extends AppCompatActivity {
         );
     }
 
+    public String fetchTrailer(int pos) {
+        String url = movies.get(pos).getVideoPath();
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray videoResults = null;
+
+                try {
+                    videoResults = response.getJSONArray("results");
+
+                    for (int i = 0; i < videoResults.length(); i++) {
+                        if (videoResults.getJSONObject(i).getString("name").contains("Trailer")) {
+                            ytUrl = videoResults.getJSONObject(i).getString("key");
+                        }
+                    }
+
+                    if (ytUrl.length() == 0) {
+                        ytUrl = videoResults.getJSONObject(0).getString("key");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return ytUrl;
+    }
+
     public void onClick(View view, int pos) {
         String movTitle = movies.get(pos).title;
         String synopsis = movies.get(pos).overview;
         String rating = String.valueOf(movies.get(pos).rating/2.0);
         String numvotes = "(" + String.valueOf(movies.get(pos).numvotes) + ")";
         String releaseDate = movies.get(pos).releaseDate;
+        String videoUrl = fetchTrailer(pos);
+        String backdrop = movies.get(pos).getBackdropPath();
 
         Intent i = new Intent(MovieActivity.this, PopupActivity.class);
         i.putExtra("movTitle", movTitle);
@@ -117,6 +149,8 @@ public class MovieActivity extends AppCompatActivity {
         i.putExtra("rating", rating);
         i.putExtra("numvotes", numvotes);
         i.putExtra("releaseDate", releaseDate);
+        i.putExtra("videoUrl", videoUrl);
+        i.putExtra("backdrop", backdrop);
         startActivity(i);
     }
 }

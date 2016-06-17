@@ -17,6 +17,7 @@ public class Movie {
     public int numvotes;
     public double rating;
     public String releaseDate;
+    public String videoID;
 
 
     public String getPosterPath() {
@@ -27,6 +28,10 @@ public class Movie {
         return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
 
+    public String getVideoPath() {
+        return "http://api.themoviedb.org/3/movie/" + videoID + "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+    }
+
     public Movie(JSONObject jsonObject) throws JSONException {
         this.title = jsonObject.getString("title");
         this.posterPath = jsonObject.getString("poster_path");
@@ -35,6 +40,7 @@ public class Movie {
         this.numvotes = jsonObject.getInt("vote_count");
         this.rating = jsonObject.getDouble("vote_average");
         this.releaseDate = jsonObject.getString("release_date");
+        this.videoID = jsonObject.getString("id");
     }
 
 
