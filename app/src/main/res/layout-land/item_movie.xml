@@ -22,6 +22,8 @@
         android:text="New Text"
         android:id="@+id/tvOverview"
         android:textSize="15sp"
+        android:ellipsize="end"
+        android:maxLines="7"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingRight="10dp"
