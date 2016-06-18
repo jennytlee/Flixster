@@ -116,15 +116,8 @@ public class MovieActivity extends AppCompatActivity {
                 try {
                     videoResults = response.getJSONArray("results");
 
-                    for (int i = 0; i < videoResults.length(); i++) {
-                        if (videoResults.getJSONObject(i).getString("name").contains("Trailer")) {
-                            ytUrl = videoResults.getJSONObject(i).getString("key");
-                        }
-                    }
+                    ytUrl = videoResults.getJSONObject(0).getString("key");
 
-                    if (ytUrl.length() == 0) {
-                        ytUrl = videoResults.getJSONObject(0).getString("key");
-                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
