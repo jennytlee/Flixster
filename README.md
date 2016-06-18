@@ -30,7 +30,8 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* Added a icon to the app
+* Added a launch icon to the app
+* Added scrolling
 
 ## Video Walkthrough
 
@@ -42,7 +43,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+* A lot of trouble getting the YouTube Player to work (failed, in the end). 
 
 ## Open-source libraries used
 
